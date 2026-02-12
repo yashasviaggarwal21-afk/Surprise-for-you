@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For SleepyBear 🤍</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: #FFF6E5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  color: #C8A97E;
+  text-align: center;
+  overflow: hidden;
+}
+
+.page {
+  display: none;
+  max-width: 420px;
+  position: relative;
+}
+
+.active {
+  display: block;
+}
+
+h1 {
+  font-size: 1.9rem;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  background-color: #E6D3B1;
+  color: #8B6F47;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 8px;
+}
+
+button:hover {
+  background-color: #DCC4A3;
+}
+
+#noBtn {
+  position: absolute;
+}
+
+/* Floating smileys */
+.smiley {
+  position: fixed;
+  font-size: 24px;
+  animation: floatUp 3s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1>Hi SleepyBear 🧸</h1>
+  <p>There is a surprise for you 🤍</p>
+  <button onclick="goToPage(2)">Tap to see</button>
+</div>
+
+<!-- PAGE 2 MEMORY -->
+<div class="page" id="page2">
+  <h1>Before I ask you something… 🤍</h1>
+  <p>
+    There have been a lot of moments where I realised you’re special.
+    But one stands out the most.<br><br>
+
+    The night I came back from Fazilka and went straight to your place at midnight.
+    When I hugged you.<br><br>
+
+    It wasn’t dramatic. It wasn’t loud.
+    But it felt right.<br><br>
+
+    That warmth… that calm…
+    it made me realise I don’t just like being around you —
+    I feel at home with you.<br><br>
+
+    That’s when I knew. You’re different 🤍
+  </p>
+  <button onclick="goToPage(3)">Continue 🤍</button>
+</div>
+
+<!-- PAGE 3 PROPOSAL -->
+<div class="page" id="page3">
+  <h1>Will you be my Valentine? 💌</h1>
+  <button onclick="yesClicked()">Yes 💖</button>
+  <button id="noBtn">No 🙈</button>
+</div>
+
+<!-- PAGE 4 YES PAGE -->
+<div class="page" id="page4">
+  <h1>Thank you for saying yes 🤍</h1>
+  <p>
+    You didn’t just say yes to a question,
+    you said yes to making ordinary days feel special with me 🥺🤍<br><br>
+
+    See you tomorrow… maybe with a little wine,
+    at your place 😌🍷
+  </p>
+  <button onclick="playSong()">Play Our Song 🎶</button>
+</div>
+
+<script>
+function goToPage(pageNumber) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+  document.getElementById('page' + pageNumber).classList.add('active');
+}
+
+/* Dodging No button */
+const noBtn = document.getElementById("noBtn");
+let dodgeCount = 0;
+
+noBtn.addEventListener("mouseover", () => {
+  dodgeCount++;
+
+  if (dodgeCount === 1) {
+    noBtn.innerText = "Are you sure?";
+  } else if (dodgeCount === 2) {
+    noBtn.innerText = "Think again please";
+  } else if (dodgeCount === 3) {
+    noBtn.innerText = "🥺";
+  }
+
+  const x = Math.random() * 300 - 150;
+  const y = Math.random() * 300 - 150;
+
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+/* Yes click with floating smileys */
+function yesClicked() {
+  goToPage(4);
+
+  for (let i = 0; i < 18; i++) {
+    let smiley = document.createElement("div");
+    smiley.className = "smiley";
+    smiley.innerText = ["😊","😍","🥰","🤍"][Math.floor(Math.random()*4)];
+    smiley.style.left = Math.random() * window.innerWidth + "px";
+    smiley.style.bottom = "0px";
+    document.body.appendChild(smiley);
+
+    setTimeout(() => {
+      smiley.remove();
+    }, 3000);
+  }
+}
+
+/* Song link */
+function playSong() {
+  window.open("https://youtu.be/2Vv-BfVoq4g", "_blank");
+}
+</script>
+
+</body>
+</html>
